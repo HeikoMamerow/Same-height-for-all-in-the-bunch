@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>sameHeight</title>
+		<meta name="author" content="Heiko Mamerow (www.heikomamerow.de)">
+		
+		<style type="text/css">
+		/*
+		This style is only for the show... ;-)
+		*/
+		h1 { font-family: sans; font-size: 1em; font-weight: normal; }
+		div, p { background: #aaa; color: #fff; font-family: sans; margin: 1em; padding: 1em; }
+		.one { background: #777; }
+		#two { background: #333; }
+		p { background: #000; }
+		</style>
+		
+		<!-- Of course we need jquery! -->
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+		<!-- Here is our script -->
+		<script type="text/javascript">
+		<!--
+		
+			/*
+			EN: Same height for all in the bunch
+			DE: Gleiche Höhe für alle im Bund
+			--------------------------------
+			EN: Track the highest element from a bunch and set other elements from the bunch to the same hight. Also do this by resizing the window.
+			DE: Findet das höchste Element in einem Bund und setzt die anderen Elemente dieses Bundes auf die gleiche Höhe. Das passiert auch beim Ändern der Fenstergröße.
+			(Credits to: http://stackoverflow.com/a/6781074)
+			*/
+			
+			var sameHeight = function() {
+			    var maxHeight = -1;
+			
+			    $('.one, #two, p').each(function() {
+			        maxHeight = maxHeight > $(this).height() ? maxHeight : $(this).height();
+			    });
+			
+			    $('.one, #two, p').each(function() {
+			        $(this).height(maxHeight);
+			    });
+			};
+			
+			// EN: If document ready: track & set.
+			// DE: Wenn Dokument geladen: Finden und Setzen.
+			$(document).ready(function() {
+			    sameHeight();
+			});
+			
+			// EN: If window resizing: reset height first, then track & set,
+			// DE: Wenn sich die Fenstergröße ändert: wird die Höhe resetet, dann erneut Finden & Setzen.
+			$(window).resize(function() {
+				$('.one, #two, p').css({
+			      "height": ""
+			    });
+			    sameHeight();
+			});
+		
+		// -->
+		</script>
+	</head>
+	
+	<body>
+	<h1>Hint: You can move the window and/or change the content. Compare the height of the boxes. They (from the bunch) will allways have the same height!</h1>
+	<hr />
+	<h1>Hinweis: Du kannst die Fenstergröße ändern und/oder den Inhalt verändern. Vergleich die Höhe der Boxen. Die Boxen (vom Bund) werden immer die gleiche Höhe haben!</h1>
+	<hr />
+	
+	<div class="one">Xxxxxx xxxx xxxxxx. Xxxxxx xxxxx.</div>
+	
+	<div id="two">Xxxxxx xxxx xxxxxx. Xxxxxx xxxxx. Xxxxxx xxxx xxxxxx. Xxxxxx xxxxx. Xxxxxx xxxx xxxxxx. Xxxxxx xxxxx. Xxxxxx xxxx xxxxxx. Xxxxxx xxxxx. Xxxxxx xxxx xxxxxx. Xxxxxx xxxxx. Xxxxxx xxxx xxxxxx. Xxxxxx xxxxx. Xxxxxx xxxx xxxxxx. Xxxxxx xxxxx. Xxxxxx xxxx xxxxxx. Xxxxxx xxxxx. Xxxxxx xxxx xxxxxx. Xxxxxx xxxxx. Xxxxxx xxxx xxxxxx. Xxxxxx xxxxx. Xxxxxx xxxx xxxxxx. Xxxxxx xxxxx. Xxxxxx xxxx xxxxxx. Xxxxxx xxxxx.</div>
+	
+	<p>Xxxxxx xxxx xxxxxx. Xxxxxx xxxxx. Xxxxxx xxxx xxxxxx. Xxxxxx xxxxx. Xxxxxx xxxx xxxxxx. Xxxxxx xxxxx. Xxxxxx xxxx xxxxxx. Xxxxxx xxxxx.</p>
+	
+	<div>I'm not in the bunch! ;-)</div>
+	</body>
+</html>
